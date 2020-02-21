@@ -3,6 +3,7 @@ package br.com.fiap.teste;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import br.com.fiap.anotacao.Coluna;
 import br.com.fiap.bean.Veiculo;
 
 public class Teste {
@@ -15,7 +16,12 @@ public class Teste {
 		Field[] atributos = veiculo.getClass().getDeclaredFields();
 		//Exibir o nome dos atributos
 		for (Field f : atributos) {
-			System.out.println(f.getName());
+			//Recuperar a anotação @Coluna
+			Coluna anotacao = f.getAnnotation(Coluna.class);
+			
+			System.out.println(f.getName() + " - " +
+				anotacao.nome() + " - " + anotacao.obrigatorio());
+			
 		}
 		
 		//Recuperar os métodos da classe veiculo

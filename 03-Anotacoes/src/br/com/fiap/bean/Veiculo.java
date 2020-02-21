@@ -1,7 +1,9 @@
 package br.com.fiap.bean;
 
 import br.com.fiap.anotacao.Coluna;
+import br.com.fiap.anotacao.Tabela;
 
+@Tabela(nome="TB_VEICULO")
 public class Veiculo {
 
 	@Coluna(nome = "nm_marca", obrigatorio = true)
