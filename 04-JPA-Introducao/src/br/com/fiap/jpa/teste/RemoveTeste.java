@@ -6,20 +6,23 @@ import javax.persistence.Persistence;
 
 import br.com.fiap.jpa.entity.Viagem;
 
-public class PesquisaTeste {
+public class RemoveTeste {
 
 	public static void main(String[] args) {
-		//Criar a fabrica de entity manager
+		//Criar a fabrica
 		EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("oracle");
 		//Criar o entity manager
 		EntityManager em = fabrica.createEntityManager();
-
-		//Pesquisar a viagem de código 1
-		Viagem viagem = em.find(Viagem.class, 21);
 		
-		//Exibir alguns dados da viagem
-		System.out.println(viagem.getOrigem());
-		System.out.println(viagem.getValorTotal());
+		//Pesquisar uma viagem
+		Viagem viagem = em.find(Viagem.class, 2);
+		
+		//Remover a viagem
+		em.remove(viagem);
+		
+		//Commit
+		em.getTransaction().begin();
+		em.getTransaction().commit();
 		
 		//Fechar as paradas
 		em.close();
@@ -27,8 +30,6 @@ public class PesquisaTeste {
 	}
 	
 }
-
-
 
 
 

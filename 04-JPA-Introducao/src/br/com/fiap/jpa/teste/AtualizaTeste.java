@@ -1,7 +1,6 @@
 package br.com.fiap.jpa.teste;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,10 +18,10 @@ public class AtualizaTeste {
 		EntityManager em = fabrica.createEntityManager();
 		
 		//Criar uma viagem com um código que existe no banco
-		Viagem viagem = new Viagem("China", "São Paulo", 
+		Viagem viagem = new Viagem("Turquia", "São Paulo", 
 			Calendar.getInstance(), null, Transporte.NAVIO, null, 1000);
 		
-		viagem.setCodigo(1);
+		//viagem.setCodigo(1);
 		
 		//Atualizar
 		em.merge(viagem);

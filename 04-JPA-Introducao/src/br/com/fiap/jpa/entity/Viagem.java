@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.PostLoad;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -53,6 +54,13 @@ public class Viagem {
 	
 	@Transient
 	private double valorTotal;
+	
+	//Método que é executado automáticamente após uma pesquisa
+	@PostLoad
+	public void carregar() {
+		System.out.println("Carregando o valor total...");
+		valorTotal = valor*2;
+	}
 	
 	public Viagem() {
 		super();
