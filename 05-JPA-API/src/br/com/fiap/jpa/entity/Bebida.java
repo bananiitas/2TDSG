@@ -40,6 +40,19 @@ public class Bebida {
 	@Column(name="ds_tipo")
 	@Enumerated(EnumType.STRING)
 	private Tipo tipo;
+	
+	public Bebida(String nome, float teorAlcoolico, Calendar dataVencimento, float valor, Tipo tipo) {
+		super();
+		this.nome = nome;
+		this.teorAlcoolico = teorAlcoolico;
+		this.dataVencimento = dataVencimento;
+		this.valor = valor;
+		this.tipo = tipo;
+	}
+
+	public Bebida() {
+		super();
+	}
 
 	public int getCodigo() {
 		return codigo;
