@@ -16,10 +16,3 @@ public interface GenericDAO<T,K> {
 	void commit() throws CommitException;
 	
 }
-
-
-
-
-
-
-
