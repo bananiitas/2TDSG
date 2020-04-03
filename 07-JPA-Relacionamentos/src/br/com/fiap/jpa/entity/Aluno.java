@@ -7,7 +7,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -31,6 +33,12 @@ public class Aluno {
 	@Lob
 	@Column(name="fl_foto")
 	private byte[] foto;
+	
+	//Mapeamento do relacionamento: muitos-para-um
+	//Pensar da classe que estamos para a classe da relação (Muitos alunos para um Grupo)
+	@ManyToOne
+	@JoinColumn(name="cd_grupo")
+	private Grupo grupo;
 
 	public int getRm() {
 		return rm;
@@ -62,6 +70,14 @@ public class Aluno {
 
 	public void setFoto(byte[] foto) {
 		this.foto = foto;
+	}
+
+	public Grupo getGrupo() {
+		return grupo;
+	}
+
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
 	}
 	
 }

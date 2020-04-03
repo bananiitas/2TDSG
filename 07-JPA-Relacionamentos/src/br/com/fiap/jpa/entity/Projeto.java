@@ -2,11 +2,15 @@ package br.com.fiap.jpa.entity;
 
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,6 +32,24 @@ public class Projeto {
 	@Temporal(TemporalType.DATE)
 	@Column(name="dt_entrega", nullable = false)
 	private Calendar dataEntrega;
+	
+	//Relacionamento um-para-um
+	//cascade -> realiza as ações na classe do relacionamento
+	//fetch -> configura o momento que será carregada a relação: LAZY e EAGER
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name="cd_grupo", nullable = false)
+	private Grupo grupo;
+	
+	public Projeto(String tema, Calendar dataEntrega, Grupo grupo) {
+		super();
+		this.tema = tema;
+		this.dataEntrega = dataEntrega;
+		this.grupo = grupo;
+	}
+
+	public Projeto() {
+		super();
+	}
 
 	public int getCodigo() {
 		return codigo;
@@ -51,6 +73,14 @@ public class Projeto {
 
 	public void setDataEntrega(Calendar dataEntrega) {
 		this.dataEntrega = dataEntrega;
+	}
+
+	public Grupo getGrupo() {
+		return grupo;
+	}
+
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
 	}
 	
 	
