@@ -39,6 +39,16 @@ public class Aluno {
 	@ManyToOne
 	@JoinColumn(name="cd_grupo")
 	private Grupo grupo;
+	
+	public Aluno(String nome, Genero genero) {
+		super();
+		this.nome = nome;
+		this.genero = genero;
+	}
+
+	public Aluno() {
+		super();
+	}
 
 	public int getRm() {
 		return rm;

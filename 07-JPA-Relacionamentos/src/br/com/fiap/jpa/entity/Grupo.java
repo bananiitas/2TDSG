@@ -1,5 +1,6 @@
 package br.com.fiap.jpa.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -33,8 +34,16 @@ public class Grupo {
 	private Projeto projeto;
 	
 	//Mapeamento bidirecional um-para-muitos
-	@OneToMany(mappedBy = "grupo")
-	private List<Aluno> alunos;
+	@OneToMany(mappedBy = "grupo", cascade = CascadeType.PERSIST)
+	private List<Aluno> alunos = new ArrayList<Aluno>();
+	
+	//Criar um método para adicionar alunos (Somente na relação OneToMany)
+	public void addAlunos(Aluno aluno) {
+		//Adicionar o aluno na lista
+		alunos.add(aluno);
+		//Setar o grupo do aluno (Atributo que mapeia a FK no banco)
+		aluno.setGrupo(this); //this -> o próprio objeto Grupo
+	}
 	
 	public Grupo(String nome) {
 		super();

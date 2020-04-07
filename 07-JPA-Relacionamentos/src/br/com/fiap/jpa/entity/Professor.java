@@ -1,10 +1,13 @@
 package br.com.fiap.jpa.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -26,6 +29,21 @@ public class Professor {
 	
 	@Column(name="st_ativo")
 	private boolean ativo;
+	
+	//Mapear o relacionamento bidirecional com o projeto (many to many)
+	@ManyToMany(mappedBy = "professores")
+	private List<Projeto> projetos;
+	
+	public Professor(String nome, double salario, boolean ativo) {
+		super();
+		this.nome = nome;
+		this.salario = salario;
+		this.ativo = ativo;
+	}
+
+	public Professor() {
+		super();
+	}
 
 	public int getPf() {
 		return pf;
@@ -57,6 +75,14 @@ public class Professor {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public List<Projeto> getProjetos() {
+		return projetos;
+	}
+
+	public void setProjetos(List<Projeto> projetos) {
+		this.projetos = projetos;
 	}
 	
 	

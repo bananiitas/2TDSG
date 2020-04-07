@@ -1,6 +1,7 @@
 package br.com.fiap.jpa.entity;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -32,6 +35,16 @@ public class Projeto {
 	@Temporal(TemporalType.DATE)
 	@Column(name="dt_entrega", nullable = false)
 	private Calendar dataEntrega;
+	
+	//Relacionamento muitos-para-muitos
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	//JoinTable configura a tabela associativa (name -> nome da tabela)
+	//joinColumns -> configura a coluna que armazena a FK da classe que estamos
+	//inverseJoinColumns -> configura a coluna que armazena a FK do outro lado da relação
+	@JoinTable(name="TB_PROJETO_PROFESSOR",
+			joinColumns = @JoinColumn(name="cd_projeto"),
+			inverseJoinColumns = @JoinColumn(name="nr_pf"))
+	private List<Professor> professores;
 	
 	//Relacionamento um-para-um
 	//cascade -> realiza as ações na classe do relacionamento
@@ -81,6 +94,14 @@ public class Projeto {
 
 	public void setGrupo(Grupo grupo) {
 		this.grupo = grupo;
+	}
+
+	public List<Professor> getProfessores() {
+		return professores;
+	}
+
+	public void setProfessores(List<Professor> professores) {
+		this.professores = professores;
 	}
 	
 	
