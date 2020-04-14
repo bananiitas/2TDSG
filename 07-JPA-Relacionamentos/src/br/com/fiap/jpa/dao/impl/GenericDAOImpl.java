@@ -14,7 +14,7 @@ import br.com.fiap.jpa.exception.NoDataException;
  * CRIAR O SINGLETON (EntityManagerFactorySingleton)
  */
 
-public abstract class GenericDAOImpl<T,K> implements GenericDAO<T, K>{
+public class GenericDAOImpl<T,K> implements GenericDAO<T, K>{
 
 	private EntityManager em;
 	
@@ -30,32 +30,37 @@ public abstract class GenericDAOImpl<T,K> implements GenericDAO<T, K>{
 	
 	@Override
 	public void cadastrar(T entidade) {
-		// TODO Auto-generated method stub
-		
+		em.persist(entidade);
 	}
 
 	@Override
 	public void atualizar(T entidade) {
-		// TODO Auto-generated method stub
-		
+		em.merge(entidade);
 	}
 
 	@Override
 	public T pesquisar(K codigo) throws NoDataException {
-		// TODO Auto-generated method stub
-		return null;
+		T entidade = em.find(clazz, codigo);
+		if (entidade == null)
+			throw new NoDataException();
+		return entidade;
 	}
 
 	@Override
 	public void remover(K codigo) throws NoDataException {
-		// TODO Auto-generated method stub
-		
+		em.remove(pesquisar(codigo));
 	}
 
 	@Override
 	public void commit() throws CommitException {
-		// TODO Auto-generated method stub
-		
+		try {
+			em.getTransaction().begin();
+			em.getTransaction().commit();
+		}catch(Exception e) {
+			em.getTransaction().rollback();
+			e.printStackTrace();
+			throw new CommitException();
+		}
 	}
 
 }
